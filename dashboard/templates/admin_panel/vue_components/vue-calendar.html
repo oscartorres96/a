@@ -1,0 +1,22 @@
+{% load i18n %}
+{% load static %}
+<script>
+app.component('v-calendar-app', {
+    props: [],
+    delimiters: ['[[', ']]'],
+    emits: [],
+    data () {
+        return {
+            selectedDate: null,
+        }
+    },
+    methods: {
+
+    },
+    template: `
+        <v-calendar></v-calendar>
+        <v-date-picker v-model='selectedDate' />
+    `
+})
+</script>
+

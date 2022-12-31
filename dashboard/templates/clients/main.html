@@ -1,0 +1,16 @@
+{% extends 'clients/base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+
+<div id="app">
+
+</div>
+{% include 'clients/vue_components/vue-clients-app.html' %}
+<script>
+    const vm = app.mount("#app");
+</script>
+
+{% endblock %}
+

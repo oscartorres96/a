@@ -12,6 +12,10 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
 
+    <!--  v-calendar  -->
+    <script src='https://unpkg.com/v-calendar'></script>
+
+
     <script>
         tailwind.config = {
           theme: {
@@ -29,7 +33,11 @@
             content-visibility: auto;
           }
         }
-      </style>
+    </style>
+
+    {% block 'scripts' %} 
+    {% endblock %}
+
 </head>
 <body>
     <div class="main">
@@ -38,6 +46,18 @@
         <p>My supercool header</p>
       </div>
 
+      {% block content %}
+      {% endblock %}
+      
+      <div class="footer">
+        <div class="container">
+          <div class="row">
+              <div class="col-sm-12 roboto">
+                  <p>© 2022 All Oscar Torres contents copyrights / All rights reserved</p>
+              </div>
+          </div>
+        </div>
+      </div>
     </div>
 </body>
 </html>

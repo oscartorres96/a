@@ -18,6 +18,6 @@ from django.urls import path
 from django.conf.urls import include, url
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin_panel/', admin.site.urls),
     url(r'^appointments/', include('dashboard.urls'))
 ]
