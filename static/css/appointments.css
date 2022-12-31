@@ -1,7 +1,53 @@
 .header {
-    padding: 60px;
     text-align: center;
-    background: #1abc9c;
+    background: #1a68bc;
     color: white;
     font-size: 30px;
 }
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #1a68bc;
+    color: white;
+    text-align: center;
+  }
+
+  .sidebar {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: lightblue;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+    }
+    
+    .sidebar div {
+    padding: 8px 8px 8px 30px;
+    font-size: 24px;
+    display: block;
+    transition: 0.5s;
+    cursor: pointer;
+    }
+    
+    .sidebar .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    }
+    
+    .openbtn {
+    font-size: 24px;
+    cursor: pointer;
+    background-color: lightblue;
+    }
+
+    #main {
+        transition: margin-left .5s;
+    }
