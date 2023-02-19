@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from api.Utilities import Util
 
 
 def index(request):
@@ -10,3 +11,8 @@ def home(request):
 
 def clients_dashboard(request):
     return render(request, "clients/main.html")
+
+def create_client(request):
+    mimetype = "application/json"
+    filters = Util().requestToJSON(request)
+    return HttpResponse(dumps(Clients().create_client(filters)), mimetype)

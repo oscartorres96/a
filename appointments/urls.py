@@ -19,5 +19,7 @@ from django.conf.urls import include, url
 
 urlpatterns = [
     path('admin_panel/', admin.site.urls),
-    url(r'^appointments/', include('dashboard.urls'))
+    url(r'^appointments/', include('dashboard.urls')),
+    url(r'^nicetemplate/', include('nicetemplate.urls')),
+
 ]
