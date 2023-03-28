@@ -7,15 +7,12 @@ const app = Vue.createApp({
     data: function(){
         return{
             showModal: false,
-            client: {
-                name: "Oscar"
-            }
         };
     },
     props: [],
     template:
     `
-    <v-new-client :client="client"/>
+    <v-new-client/>
     
     <div class="container mx-auto">
     <table class="table-auto clients">
