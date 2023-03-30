@@ -12,13 +12,13 @@ class Util:
             doc=dict(request.GET.lists())
         elif request.method == 'POST':
             doc=dict(request.POST.lists())
+            print("doc", request.POST)
             if len(doc.items())==0:
                 try:
                     doc = json.loads(request.body)
                 except:
                     doc = {}
                 band=True
-        # print("doc",doc)
         if "csrfmiddlewaretoken" in doc:
             del doc["csrfmiddlewaretoken"]
         if "undefined" in doc:
@@ -27,6 +27,7 @@ class Util:
             return doc
         #return doc
         json1={}
+        print("DOCITEMS",doc.items)
         for filtro,val in doc.items():
             filtro=filtro.replace("[]","") #quitamos los arreglos
             if not valArray and len(val)==1:
@@ -51,5 +52,4 @@ class Util:
                 # else:
                 #     nfiltro={keys[0]:val}
                 #     json[names[0]]=nfiltro
-        ##print(json)
         return json1

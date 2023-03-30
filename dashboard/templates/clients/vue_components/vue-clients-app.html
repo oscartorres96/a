@@ -2,6 +2,11 @@
 {% load static %}
 <script>
 
+const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+axios.defaults.xsrfCookieName = 'csrftoken';
+axios.defaults.xsrfHeaderName = 'X-CSRFToken';
+
 const app = Vue.createApp({
     delimiters: ['[[', ']]'],
     data: function(){
