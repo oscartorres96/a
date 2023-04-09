@@ -17,6 +17,9 @@ class Clients:
             return "created"
         else:
             return "exists"
+    
+    def get_clients(self):
+        return list(self.collection.find({}))
         
     def __del__(self):
         self.client.close()

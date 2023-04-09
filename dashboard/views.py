@@ -20,3 +20,7 @@ def create_client(request):
     mimetype = "application/json"
     data = json.loads(request.body)
     return HttpResponse(dumps(Clients().create_client(data)), mimetype)
+
+def get_clients(request):
+    mimetype = "application/json"
+    return HttpResponse(dumps(Clients().get_clients()), mimetype)

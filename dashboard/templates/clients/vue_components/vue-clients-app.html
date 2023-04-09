@@ -12,40 +12,62 @@ const app = Vue.createApp({
     data: function(){
         return{
             showModal: false,
+            clients: []
         };
     },
     props: [],
     template:
     `
     <v-new-client/>
-    
+  
     <div class="container mx-auto">
-    <table class="table-auto clients">
-      <thead>
-        <tr>
-          <th>Nombre</th>
-          <th>Appelido</th>
-          <th>Celular</th>
-          <th>Correo</th>
-          <th>Estatus</th>
-          <th>Ultima visita</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Oscar</td>
-          <td>Torres</td>
-          <td>3541201083</td>
-          <td>oscartorres0396@gmail.com</td>
-          <td>Activo</td>
-          <td>15-Enero-2023</td>
-        </tr>
-      </tbody>
-    </table>
+      <table class="min-w-full divide-y divide-gray-200">
+        <thead class="bg-gray-50">
+          <tr>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nombre</th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Apellidos</th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Correo electrónico</th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Teléfono</th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Historial</th>
+          </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+          <tr v-for="client in clients">
+            <td class="px-6 py-4 whitespace-nowrap">[[ client.name ]]</td>
+            <td class="px-6 py-4 whitespace-nowrap">[[ client.lastname ]]</td>
+            <td class="px-6 py-4 whitespace-nowrap">[[ client.email ]]</td>
+            <td class="px-6 py-4 whitespace-nowrap">[[ client.phoneNumber ]]</td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" @click="showHistory(client)">Ver historial</button>
+            </td> 
+          </tr>
+          <!-- Agregar más filas según los datos de los clientes -->
+        </tbody>
+      </table>
     </div>
+    
     `,
-    methods: {},
-    mounted: function () {},
+    methods: {
+      showHistory(client) {
+        console.log("Mostrar historial", client)
+      },
+
+      getClients() {
+        let that = this
+        axios.get('get_clitens')
+        .then(function (response) {
+          that.clients = response.data
+        })
+        .catch(function (error) {
+          // Manejar el error
+          console.log(error);
+        });
+
+      }
+    },
+    mounted: function () {
+      this.getClients()
+    },
     beforeUnmount() {},
     computed: {}
 });
