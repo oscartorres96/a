@@ -1,0 +1,27 @@
+{% load i18n %}
+{% load static %}
+<script>
+
+app.component('v-edit-client', {
+    delimiters: ['[[', ']]'],
+    data: function(){
+        return{
+        };
+    },
+    props: ['selectedClient', 'showModalEdit'],
+    emits: ['closeModal'],
+    template:
+    `
+    {% include 'clients/vue_components/edit-client-modal.html' %}
+    `,
+    methods: {
+        closeModal() {
+            this.$emit('closeModal', !this.showModalEdit);
+        }
+    },
+    mounted: function () {},
+    beforeUnmount() {},
+    computed: {}
+});
+
+</script>

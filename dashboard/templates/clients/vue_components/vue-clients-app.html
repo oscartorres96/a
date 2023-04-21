@@ -12,14 +12,21 @@ const app = Vue.createApp({
     data: function(){
         return{
             showModal: false,
-            clients: []
+            clients: [],
+            selectedClient: null,
+            showModalEdit: false
         };
     },
     props: [],
     template:
     `
     <v-new-client/>
-  
+    <v-edit-client 
+      :selectedClient=selectedClient 
+      :showModalEdit="showModalEdit"
+      @closeModal="handleCloseModal"
+    />
+    
     <div class="container mx-auto">
       <table class="min-w-full divide-y divide-gray-200">
         <thead class="bg-gray-50">
@@ -28,7 +35,7 @@ const app = Vue.createApp({
             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Apellidos</th>
             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Correo electrónico</th>
             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Teléfono</th>
-            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Historial</th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Acciones</th>
           </tr>
         </thead>
         <tbody class="bg-white divide-y divide-gray-200">
@@ -39,6 +46,7 @@ const app = Vue.createApp({
             <td class="px-6 py-4 whitespace-nowrap">[[ client.phoneNumber ]]</td>
             <td class="px-6 py-4 whitespace-nowrap">
               <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" @click="showHistory(client)">Ver historial</button>
+              <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" @click="editClient(client)">Editar</button>
             </td> 
           </tr>
           <!-- Agregar más filas según los datos de los clientes -->
@@ -48,6 +56,11 @@ const app = Vue.createApp({
     
     `,
     methods: {
+      editClient(client) {
+        this.selectedClient = client
+        this.showModalEdit = !this.showModalEdit
+      },
+
       showHistory(client) {
         console.log("Mostrar historial", client)
       },
@@ -63,6 +76,10 @@ const app = Vue.createApp({
           console.log(error);
         });
 
+      },
+
+      handleCloseModal(value) {
+        this.showModalEdit = value;
       }
     },
     mounted: function () {
@@ -76,3 +93,4 @@ const app = Vue.createApp({
 
 <!-- includes her, example -> include "login/vue_components/v-input-email.html" -->
 {% include "clients/vue_components/vue-new-client-modal.html" %}
+{% include "clients/vue_components/vue-edit-client.html" %}
