@@ -17,6 +17,11 @@ app.component('v-edit-client', {
     methods: {
         closeModal() {
             this.$emit('closeModal', !this.showModalEdit);
+        },
+
+        updateClient() {
+            console.log("Aqui se va a actualizar el cliente")
+            console.log(this.selectedClient)
         }
     },
     mounted: function () {},

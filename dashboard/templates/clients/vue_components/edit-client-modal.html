@@ -15,7 +15,7 @@
             </div>
   
             <div class="modal-body">
-                <form>
+                <div>
                   <div class="mb-4">
                     <label class="block text-gray-700 font-bold mb-2" for="name">
                       Nombre
@@ -23,7 +23,8 @@
                     <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                            id="name"
                            type="text"
-                           placeholder="Ingresa el nombre">
+                           placeholder="Ingresa el nombre"
+                           v-model="selectedClient.name">
                   </div>
                   <div class="mb-4">
                     <label class="block text-gray-700 font-bold mb-2" for="name">
@@ -32,16 +33,19 @@
                     <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                            id="name"
                            type="text"
-                           placeholder="Ingresa los apellidos">
+                           placeholder="Ingresa los apellidos"
+                           v-model="selectedClient.lastname">
                   </div>
                   <div class="mb-4">
                     <label class="block text-gray-700 font-bold mb-2" for="email">
                       Correo
                     </label>
-                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                           id="email"
-                           type="email"
-                           placeholder="Ingresa el correo">
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline disabled"
+                          id="email"
+                          type="email"
+                          placeholder="Ingresa el correo"
+                          v-model="selectedClient.email"
+                          :disabled="true">
                   </div>
                   <div class="mb-4">
                     <label class="block text-gray-700 font-bold mb-2" for="name">
@@ -50,14 +54,15 @@
                     <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                            id="name"
                            type="text"
-                           placeholder="Ingresa el número de celular">
+                           placeholder="Ingresa el número de celular"
+                           v-model="selectedClient.phoneNumber">
                   </div>
 
                   <div class="flex justify-end mt-3">
-                    <button class="modal-close px-4 bg-gray-500 p-3 rounded-lg text-white hover:bg-gray-400" @click="showModalEdit = false">Cerrar</button>
-                    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Guardar</button>
+                    <button class="modal-close px-4 bg-gray-500 p-3 rounded-lg text-white hover:bg-gray-400" @click="closeModal">Cerrar</button>
+                    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" @click="updateClient">Guardar</button>
                   </div>
-                </form>
+                </div>
             </div>
   
             <div class="modal-footer flex justify-end pt-2">
