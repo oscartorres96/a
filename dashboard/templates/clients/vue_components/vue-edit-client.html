@@ -2,31 +2,54 @@
 {% load static %}
 <script>
 
-app.component('v-edit-client', {
-    delimiters: ['[[', ']]'],
-    data: function(){
-        return{
-        };
-    },
-    props: ['selectedClient', 'showModalEdit'],
-    emits: ['closeModal'],
-    template:
-    `
-    {% include 'clients/vue_components/edit-client-modal.html' %}
-    `,
-    methods: {
-        closeModal() {
-            this.$emit('closeModal', !this.showModalEdit);
+    app.component('v-edit-client', {
+        delimiters: ['[[', ']]'],
+        data: function () {
+            return {
+                errors: []
+            };
         },
+        props: ['selectedClient', 'showModalEdit', 'equivalences'],
+        emits: ['closeModal'],
+        template:
+        `
+        {% include 'clients/vue_components/edit-client-modal.html' %}
+        `,
+        methods: {
+            closeModal() {
+                this.$emit('closeModal', !this.showModalEdit);
+            },
 
-        updateClient() {
-            console.log("Aqui se va a actualizar el cliente")
-            console.log(this.selectedClient)
-        }
-    },
-    mounted: function () {},
-    beforeUnmount() {},
-    computed: {}
-});
+            updateClient() {
+                this.errors = []
+                this.$forceUpdate()
+                for (const prop in this.selectedClient) {
+                    if (!this.selectedClient[prop]) {
+                        this.errors.push(this.equivalences[prop])
+                        this.$forceUpdate()
+                    }
+                }
+
+                if (this.errors.length == 0) {
+                    axios.post("updateClient", { user: this.selectedClient }, { headers: { 'X-CSRFToken': csrftoken } })
+                        .then(response => {
+                            Swal.fire(`${response.data} usuarios modificados`)
+                        }).catch(error => {
+                            console.error('There was an error!', error);
+                        });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: `Necesitas llenar los siguientes campos: ${this.errors.join(", ")}`,
+                        footer: 'Llena los campos y despues intenta guardar de nuevo'
+                      })
+                }
+            }
+        },
+        mounted: function () { },
+        beforeUnmount() { },
+        computed: {}
+    });
 
 </script>

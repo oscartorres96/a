@@ -14,16 +14,22 @@ const app = Vue.createApp({
             showModal: false,
             clients: [],
             selectedClient: null,
-            showModalEdit: false
+            showModalEdit: false,
+            equivalences: {
+              'name': 'Nombre',
+              'lastname': 'Apellidos',
+              'email': 'Correo',
+              'phoneNumber': 'Número de celular'
+            }
         };
     },
-    props: [],
     template:
     `
     <v-new-client/>
     <v-edit-client 
       :selectedClient=selectedClient 
       :showModalEdit="showModalEdit"
+      :equivalences="equivalences"
       @closeModal="handleCloseModal"
     />
     

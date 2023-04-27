@@ -17,6 +17,14 @@ class Clients:
             return "created"
         else:
             return "exists"
+        
+    def update_client(self, data):
+        user = data['user']
+        del user['_id']
+        filter = {"email": user['email']}
+        result = self.collection.replace_one(filter, user)
+        print(result.modified_count)
+        return result.modified_count
     
     def get_clients(self):
         return list(self.collection.find({}))

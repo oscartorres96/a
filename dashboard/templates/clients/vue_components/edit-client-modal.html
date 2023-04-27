@@ -55,7 +55,9 @@
                            id="name"
                            type="text"
                            placeholder="Ingresa el número de celular"
-                           v-model="selectedClient.phoneNumber">
+                           v-model="selectedClient.phoneNumber"
+                           ref="phoneNumberInput"
+                          @keydown.enter.prevent="updateClient">
                   </div>
 
                   <div class="flex justify-end mt-3">
