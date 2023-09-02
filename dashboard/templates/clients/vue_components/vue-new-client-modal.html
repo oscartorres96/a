@@ -1,0 +1,85 @@
+{% load i18n %}
+{% load static %}
+<script>
+
+app.component('v-new-client', {
+    delimiters: ['[[', ']]'],
+    data: function(){
+        return{
+            showModal: false,
+            form: {
+                name: '',
+                lastname: '',
+                email: '',
+                'phoneNumber': ''
+            },
+            fields: ['name', 'lastname', 'email', 'phoneNumber'],
+            errors: [],
+            equivalences: {
+              'name': 'Nombre',
+              'lastname': 'Apellidos',
+              'email': 'Correo',
+              'phoneNumber': 'Número de celular'
+            }
+        };
+    },
+    props: [],
+    emits: [],
+    template:
+    `
+    {% include 'clients/vue_components/client-modal.html' %}
+    `,
+    methods: {
+      changeModal(value) {
+        this.clearForm()
+        this.showModal = value
+      },
+
+      clearForm() {
+        this.form.name = ""
+        this.form.lastname = ""
+        this.form.email = ""
+        this.form.phoneNumber = ""
+      },
+
+      submitForm() {
+        this.errors = []
+          for (const field of this.fields) {
+            if (!this.form[field]) {
+              this.errors.push(`El campo ${this.equivalences[field]} es obligatorio.`);
+            }
+          }
+
+          if (this.errors == 0) {
+            axios.post("createClient", {
+              user: this.form
+            }, {
+              headers: {
+                'X-CSRFToken': csrftoken
+              }
+            })
+            .then(response => {
+                if (response.data == "created") {
+                  Swal.fire('El usuario fue creado con exito')
+                }
+                else {
+                  Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: `El usuario con el correo ${this.form.email} ya existe`,
+                    footer: '<a href="">Se recomienda buscarlo en la tabla de usuarios</a>'
+                  })
+                }
+            }).catch(error => {
+                console.error('There was an error!', error);
+            });
+          } 
+
+      },
+    },
+    mounted: function () {},
+    beforeUnmount() {},
+    computed: {}
+});
+
+</script>

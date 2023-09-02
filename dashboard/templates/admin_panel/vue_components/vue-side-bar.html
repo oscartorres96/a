@@ -1,0 +1,33 @@
+{% load i18n %}
+{% load static %}
+<script>
+app.component('v-side-bar', {
+    props: [],
+    delimiters: ['[[', ']]'],
+    emits: [],
+    methods: {
+        openNav() {
+            document.getElementById("mySidebar").style.width = "250px";
+            document.getElementById("main").style.marginLeft = "250px";
+        },
+            
+        closeNav() {
+            document.getElementById("mySidebar").style.width = "0";
+            document.getElementById("main").style.marginLeft= "0";
+        }
+    },
+    template: `
+    <div id="mySidebar" class="sidebar">
+        <div class="closebtn" @click="closeNav">×</div>
+        <div>About</div>
+        <div>Services</div>
+        <div><a href="clients">Clients</a></div>
+        </div>
+        
+        <div id="main">
+            <button class="openbtn" @click="openNav">Mi Menu</button> 
+        <p>Desplazar</p>
+    </div>
+    `
+})
+</script>

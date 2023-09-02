@@ -1,0 +1,16 @@
+{% extends 'admin_panel/base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+
+<div id="app">
+    
+</div>
+{% include 'admin_panel/vue_components/vue-app.html' %}
+<script>
+    const vm = app.mount("#app"); 
+</script>
+
+{% endblock %}
+

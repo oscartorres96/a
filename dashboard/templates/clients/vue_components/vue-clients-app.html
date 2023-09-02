@@ -1,21 +1,102 @@
 {% load i18n %}
 {% load static %}
 <script>
+
+const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+axios.defaults.xsrfCookieName = 'csrftoken';
+axios.defaults.xsrfHeaderName = 'X-CSRFToken';
+
 const app = Vue.createApp({
     delimiters: ['[[', ']]'],
     data: function(){
-        return{test: 1};
+        return{
+            showModal: false,
+            clients: [],
+            selectedClient: null,
+            showModalEdit: false,
+            equivalences: {
+              'name': 'Nombre',
+              'lastname': 'Apellidos',
+              'email': 'Correo',
+              'phoneNumber': 'Número de celular'
+            }
+        };
     },
-    props: [],
     template:
-        `
-        `,
-    methods: {},
-    mounted: function () {},
+    `
+    <v-new-client/>
+    <v-edit-client 
+      :selectedClient=selectedClient 
+      :showModalEdit="showModalEdit"
+      :equivalences="equivalences"
+      @closeModal="handleCloseModal"
+    />
+    
+    <div class="container mx-auto">
+      <table class="min-w-full divide-y divide-gray-200">
+        <thead class="bg-gray-50">
+          <tr>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nombre</th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Apellidos</th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Correo electrónico</th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Teléfono</th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Acciones</th>
+          </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+          <tr v-for="client in clients">
+            <td class="px-6 py-4 whitespace-nowrap">[[ client.name ]]</td>
+            <td class="px-6 py-4 whitespace-nowrap">[[ client.lastname ]]</td>
+            <td class="px-6 py-4 whitespace-nowrap">[[ client.email ]]</td>
+            <td class="px-6 py-4 whitespace-nowrap">[[ client.phoneNumber ]]</td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" @click="showHistory(client)">Ver historial</button>
+              <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" @click="editClient(client)">Editar</button>
+            </td> 
+          </tr>
+          <!-- Agregar más filas según los datos de los clientes -->
+        </tbody>
+      </table>
+    </div>
+    
+    `,
+    methods: {
+      editClient(client) {
+        this.selectedClient = client
+        this.showModalEdit = !this.showModalEdit
+      },
+
+      showHistory(client) {
+        console.log("Mostrar historial", client)
+      },
+
+      getClients() {
+        let that = this
+        axios.get('get_clitens')
+        .then(function (response) {
+          that.clients = response.data
+        })
+        .catch(function (error) {
+          // Manejar el error
+          console.log(error);
+        });
+
+      },
+
+      handleCloseModal(value) {
+        this.showModalEdit = value;
+      }
+    },
+    mounted: function () {
+      this.getClients()
+    },
+    beforeUnmount() {},
     computed: {}
 });
 
 </script>
 
-
 <!-- includes her, example -> include "login/vue_components/v-input-email.html" -->
+{% include "clients/vue_components/vue-new-client-modal.html" %}
+{% include "clients/vue_components/vue-edit-client.html" %}
