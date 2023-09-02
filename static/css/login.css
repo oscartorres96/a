@@ -1,0 +1,29 @@
+body > nav > a > img {
+    margin-left: 10px;
+}
+
+body > nav {
+    background-color: #3498db !important;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #f8f9fa;
+    padding: 10px 0;
+    background-color: #3498db !important;
+}
+
+body {
+    /* Fondo sólido */
+    background: #3498db; /* Cambia el fondo sólido al color del header/footer */
+
+    /* Fondo con gradiente */
+    background: linear-gradient(90deg, rgba(52, 152, 219, 1) 0%, rgba(9, 121, 97, 1) 74%, rgba(0, 212, 255, 1) 84%);
+
+}
+
+.custom-min-vh {
+    min-height: 70vh;
+}

@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %} 
+
+{% block content %}
+    <div id="login-app">
+        <div class="container-fluid">
+            <div class="row justify-content-center align-items-center custom-min-vh">
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-header">Iniciar Sesión</div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Correo Electrónico</label>
+                                <input type="email" class="form-control" id="email" name="email" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Contraseña</label>
+                                <input type="password" class="form-control" id="password" name="password" required>
+                            </div> 
+                            <button type="button" class="btn btn-primary btn-block">Iniciar Sesión</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'js/vue/login-vue-app.js' %}"></script>
+{% endblock %}
